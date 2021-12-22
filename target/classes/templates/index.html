@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="layout_8a42639.css">
+    <link rel="stylesheet"  href="main.html_aio_2_29de31f.css">
+    <link rel="stylesheet"  href="main.html_aio_16da111.css">
+    <link rel="stylesheet"  href="widgets_03f0f0e.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="top_bannerC">
+    <a rel="nofollow" href="https://zhuanti.lagou.com/qiuzhaozhc.html"
+       style="background: url(https://www.lgstatic.com/i/image/M00/3C/48/CgqCHl8nkiOAOihGAAC5a9EQ2rU358.PNG) center center no-repeat"
+       target="_blank" data-lg-tj-id="bd00" data-lg-tj-no="idnull" data-lg-tj-cid="11127" class=""></a>
+</div>
+
+<div id="lg_header" >
+    <!-- 页面主体START -->
+    <div id="content-container">
+
+        <div class="search-wrapper" style="height: 180px;">
+            <div id="searchBar" class="search-bar" style="padding-top: 30px;">
+                <div class="tab-wrapper" style="display: block;">
+                    <a id="tab_pos" class="active" rel="nofollow" href="javascript:;">职位 ( <span>500+</span> ) </a>
+                    <a id="tab_comp" class="disabled" rel="nofollow" href="javascript:;">公司 ( <span>0</span> ) </a>
+                </div>
+                <div class="input-wrapper" data-lg-tj-track-code="search_search" data-lg-tj-track-type="1">
+                    <div class="keyword-wrapper">
+                        <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input
+                            type="text" id="keyword" v-model="keyword" autocomplete="off" maxlength="64" placeholder="搜索职位、公司或地点"
+                            value="java" class="ui-autocomplete-input"   @keyup.enter="searchPosition">
+                    </div>
+                    <input type="button" id="submit"  value="搜索" @click="searchPosition">
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索输入框模块 -->
+        <div id="main_container">
+            <!-- 左侧 -->
+            <div class="content_left">
+                <div class="s_position_list " id="s_position_list">
+                    <ul class="item_con_list" style="display: block;">
+                        <li class="con_list_item default_list"  v-for="element in results">
+                            <span class="top_icon direct_recruitment"></span>
+                            <div class="list_item_top">
+                                <div class="position">
+                                    <div class="p_top">
+                                        <h3 style="max-width: 180px;">{{element.positionName}}</h3>
+                                        <span class="add">[<em>{{element.workAddress}}</em>]</span>
+                                        <span class="format-time"> {{element.createTime}} 发布</span>
+                                    </div>
+                                    <div class="p_bot">
+                                        <div class="li_b_l">
+                                            <span class="money">{{element.salary}}</span>
+                                            经验 {{element.workYear}} 年 / {{element.education}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="company">
+                                    <div class="company_name">
+                                        <a href="#" target="_blank">{{element.companyName}}</a>
+                                        <i class="company_mark"><span>该企业已经上传营业执照并通过资质验证审核</span></i>
+                                    </div>
+                                    <div class="industry">
+                                        福利 【{{element.positionAdvantage}}】
+                                    </div>
+                                </div>
+                                <div class="com_logo">
+                                    <img src="//www.lgstatic.com/thumbnail_120x120/i/image2/M01/79/70/CgotOV1aS4qAWK6WAAAM4NTpXws809.png"
+                                         alt="拉勾渠道" width="60" height="60">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script>
+    new Vue({
+        el: "#lg_header",
+        data: {
+            keyword: "",
+            results: []
+        },
+        methods: {
+            searchPosition(){
+                var keyword = this.keyword;
+                axios.get('http://localhost:8083/search/'+ keyword + '/1/5').then(response =>{
+                    this.results = response.data;
+                });
+            }
+        }
+    });
+</script>
+
+</html>
